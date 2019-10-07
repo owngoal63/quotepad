@@ -431,7 +431,7 @@ class ProductPriceDelete(DeleteView):
 def generate_quote_from_file(request, outputformat, quotesource):
 
 	# Initial check to see if user specific PDF template file exists
-	# If it does then use that template, if not use the generic template
+	# If it does then use that template, if not then use the generic template
 	usr_pdf_template_file = Path(settings.BASE_DIR + "/templates/pdf/user_{}/quote_for_pdf.html".format(request.user.username))
 	print(usr_pdf_template_file)
 	if os.path.isfile(usr_pdf_template_file):
