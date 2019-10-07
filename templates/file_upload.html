@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div>{{message|safe}}</div>
+  {% endfor %}
+{% endif %}
+
+<h2>File upload</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- <button type="submit">Upload</button> -->
+    <button class="btn btn-primary" type="submit">Upload</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+  <br>
+{% endblock %}

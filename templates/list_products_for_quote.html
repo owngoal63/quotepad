@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h4>Select Product for quote</h4>
+
+<h5>Brand: {{products.0.brand}}</h5>
+
+{% for product in products %}
+
+    <p>{{product.model_name}} / {{product.product_code}} / £{{product.price}}</p>
+   
+    {% empty %}
+    <p>No products found.</p>
+
+{% endfor %}
+ 
+{% endblock %}
