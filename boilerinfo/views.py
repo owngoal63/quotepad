@@ -197,7 +197,8 @@ class FormWizardView(SessionWizardView):
 		customer_last_name = ([form.cleaned_data for form in form_list][0].get('customer_last_name'))
 
 		# Assign file name to store generated PDF
-		outputFilename = "pdf_quote_archive/user_{}/Quote_{}_{}{}.pdf".format(self.request.user.username,idx.quote_prefix,customer_last_name.replace(" ","_"),f"{idx.cur_quote_no:05}") # pad with leading zeros (5 positions)
+		#outputFilename = "pdf_quote_archive/user_{}/Quote_{}_{}{}.pdf".format(self.request.user.username,idx.quote_prefix,customer_last_name.replace(" ","_"),f"{idx.cur_quote_no:05}") # pad with leading zeros (5 positions)
+		outputFilename = Path(settings.BASE_DIR + "/pdf_quote_archive/user_{}/Quote_{}_{}{}.pdf".format(self.request.user.username,idx.quote_prefix,customer_last_name.replace(" ","_"),f"{idx.cur_quote_no:05}")) # pad with leading zeros (5 positions)
 
 		# Write the form data input to a file in the folder pdf_quote_archive/user_xxxx/current_quote.txt
 		current_quote_form_filename =  Path(settings.BASE_DIR + "/pdf_quote_archive/user_{}/current_quote.txt".format(self.request.user.username))
@@ -483,7 +484,7 @@ def generate_quote_from_file(request, outputformat, quotesource):
 		# Get customer lastname
 		customer_last_name = (file_form_data[0].get('customer_last_name'))
 		# Assign file name to store generated PDF
-		outputFilename = "pdf_quote_archive/user_{}/Quote_{}_{}{}.pdf".format(request.user.username,idx.quote_prefix,customer_last_name.replace(" ","_"),f"{idx.cur_quote_no:05}") # pad with leading zeros (5 positions)
+		outputFilename = Path(settings.BASE_DIR + "/pdf_quote_archive/user_{}/Quote_{}_{}{}.pdf".format(request.user.username,idx.quote_prefix,customer_last_name.replace(" ","_"),f"{idx.cur_quote_no:05}")) # pad with leading zeros (5 positions)
 		# Generate the PDF and write to disk
 		convertHtmlToPdf2(sourceHtml, outputFilename, {
 			'form_data': file_form_data,
