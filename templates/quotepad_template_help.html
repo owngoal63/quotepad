@@ -333,7 +333,7 @@
         
         <th>Page Layout Identifer (use within an image source tag)</th>
         <tr>
-                <td>{% verbatim %}..{{img_record.document.url}} {% endverbatim %}</td>  
+                <td>{% verbatim %}{{img_record.document.url}} {% endverbatim %}</td>  
         </tr>
         
     </table>  
@@ -351,7 +351,7 @@
     {% for frecord in frecords %}
         <tr>
         <td><img src="{{frecord.document.url}}"  height="70" style="border:1px solid grey" >{{ frecord.description }}</td>
-        <td>..{% templatetag openvariable %}frecords.{{forloop.revcounter0}}.document.url{% templatetag closevariable %}</td>
+        <td>{% templatetag openvariable %}frecords.{{forloop.revcounter0}}.document.url{% templatetag closevariable %}</td>
         </tr>
     
 
