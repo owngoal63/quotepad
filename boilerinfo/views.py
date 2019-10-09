@@ -462,8 +462,10 @@ def generate_quote_from_file(request, outputformat, quotesource):
 	idx = Profile.objects.get(user = request.user)
 
 	# Get the ProductPrice record selection from the form data
-	#product_record = ProductPrice.objects.get(pk = 4)
-	product_record = ProductPrice.objects.get(pk = int(product_id))
+	if quotesource == "testdata":	# retrieve the dummy test record
+		product_record = ProductPrice.objects.first()			
+	else:	# retrieve the user select product record
+		product_record = ProductPrice.objects.get(pk = int(product_id))
 
 	frecords = Document.objects.filter(user=request.user.username).order_by('uploaded_at')
 	print(product_record.product_image.id)
