@@ -17,6 +17,9 @@
     <p><a href="/stripecheckout">Subscribe to Quotepad service for £15 per month</a></p>
 {% endifnotequal %}
 
+Profile Updated: {{ request.session.Profile_updated }}<br>
+Image Loaded: {{ request.session.Image_loaded }}<br>
+Product Record: {{ request.session.ProductPrice_record }}<br>
+User Subscribed: {{ request.session.User_subscribed }}<br>
 
- 
 {% endblock %}

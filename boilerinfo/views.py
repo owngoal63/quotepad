@@ -43,10 +43,40 @@ from django.core.mail import EmailMessage
 from .models import Profile, ProductPrice
 from .forms import ProfileForm, UserProfileForm, ProductPriceForm,EditQuoteTemplateForm
 
+# import associated with signals (used for setting session variables)
+from django.dispatch import receiver
+from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.models import User, Group
+
 # imports for managing .csv file upload
 import csv, io
 # for copying the template pdf file to the user folder
 import shutil
+
+@receiver(user_logged_in)
+def sig_user_logged_in(sender, user, request, **kwargs):
+
+	if Profile.objects.filter(user = request.user, first_name=''):
+		request.session['Profile_updated'] = False
+	else:
+		request.session['Profile_updated'] = True
+
+	if Document.objects.filter(user = request.user).count() > 0 :
+		request.session['Image_loaded'] = True
+	else:
+		request.session['Image_loaded'] = False
+
+	if ProductPrice.objects.filter(user = request.user).count() > 0 :
+		request.session['ProductPrice_record'] = True
+	else:
+		request.session['ProductPrice_record'] = False
+
+	if user.groups.filter(name = "Subscribed").exists():
+		request.session['User_subscribed'] = True
+	else:
+		request.session['User_subscribed'] = False
+
+	return 
 
 class FormWizardView(SessionWizardView):
 	template_name = "boilerform.html"
@@ -354,6 +384,7 @@ def model_form_upload(request):
 			document = form.save(commit=False)
 			document.user = request.user
 			document.save()
+			request.session['Image_loaded'] = True
 			messages.success(request, 'The image file was successfully added.')
 			return redirect('/showuploadedfiles/')
 	else:
@@ -374,6 +405,7 @@ def edit_Profile_details(request):
 		form = ProfileForm(request.POST, instance=profile)
 		if form.is_valid():
 			form.save()
+			request.session['Profile_updated'] = True
 			messages.success(request, 'Your profile details have been updated.')
 			return redirect('/home/')
 	else:
@@ -398,6 +430,7 @@ def ProductPriceCreate(request):
 			product.user = request.user
 			product.save()
 			messages.success(request, 'The product details were successfully updated.')
+			request.session['ProductPrice_record'] = True
 			return redirect('/productpricelist/')
 	else:
 		form = ProductPriceForm(user = request.user)
@@ -415,6 +448,7 @@ def ProductPriceUpdate(request, product_id):
 		if form.is_valid():
 			product = form.save()
 			messages.success(request, 'The product details were successfully updated.')
+			request.session['ProductPrice_record'] = True
 			return redirect('/productpricelist/')
 	else:
 		form = ProductPriceForm(instance=product, user = request.user)

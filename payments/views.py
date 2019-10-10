@@ -27,4 +27,5 @@ def charge(request):
         # Add the user who has paid the sub to the group 'Subscribed'
         subscribed_group = Group.objects.get(name = 'Subscribed')
         request.user.groups.add(subscribed_group)
+        request.session['User_subscribed'] = True
         return render(request, 'payments/charge.html')
