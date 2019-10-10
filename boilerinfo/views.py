@@ -461,10 +461,16 @@ def generate_quote_from_file(request, outputformat, quotesource):
 
 	idx = Profile.objects.get(user = request.user)
 
-	# Get the ProductPrice record selection from the form data
-	if quotesource == "testdata":	# retrieve the dummy test record
-		product_record = ProductPrice.objects.first()			
-	else:	# retrieve the user select product record
+	# Get the ProductPrice record selection 
+	if quotesource == "testdata":	# ProductPrice will come from the first user record or from the demo record	
+		if ProductPrice.objects.filter(user = request.user).count() > 0 :	# Check if the user has created a product/price record
+			product_record = ProductPrice.objects.filter(user = request.user).first()	# A product price record exists - use the first one
+			print(product_record)
+			print("Does exist")
+		else:	# Product Price record does not exist - select the Demo record
+			print("Does not exist")
+			product_record = ProductPrice.objects.first()			
+	else:	# retrieve the user selected product record from the quote form
 		product_record = ProductPrice.objects.get(pk = int(product_id))
 
 	frecords = Document.objects.filter(user=request.user.username).order_by('uploaded_at')
