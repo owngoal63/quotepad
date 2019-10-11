@@ -280,6 +280,9 @@ class FormWizardView(SessionWizardView):
 		return HttpResponseRedirect('/quotegenerated/')
 
 
+def quote_not_possible(request):
+	return render(request,'quote_not_possible.html')
+
 def quote_generated(request):
 	request.session['created_quote'] = True
 	created_quote_group = Group.objects.get(name = 'created_quote')

@@ -24,7 +24,7 @@ from boilerinfo.views import home, register, change_password
 from boilerinfo.forms import FormStepOne, FormStepTwo, FormStepThree, FormStepFour, FormStepFive, FormStepSix, FormStepSeven, FormStepEight, FormStepNine
 from boilerinfo.views import FormWizardView, model_form_upload
 
-from boilerinfo.views import edit_Profile_details, show_uploaded_files, quote_generated, quote_emailed, quotepad_template_help
+from boilerinfo.views import edit_Profile_details, show_uploaded_files, quote_generated, quote_emailed, quote_not_possible, quotepad_template_help
 from boilerinfo.views import ProductPriceList, ProductPriceCreate, ProductPriceUpdate, ProductPriceDelete
 from boilerinfo.views import generate_quote_from_file, edit_quote_template, list_quote_archive, pdf_view
 
@@ -56,6 +56,7 @@ urlpatterns = [
 	path('showuploadedfiles/', show_uploaded_files, name = 'show_uploaded_files'),
 	path('quotegenerated/', quote_generated, name = 'quote_generated'),
 	path('quoteemailed/', quote_emailed, name = 'quote_emailed'),
+	path('quotenotpossible/', quote_not_possible, name = 'quote_not_possible'),
 	path('quotepadtemplatehelp/', quotepad_template_help, name = 'quotepad_template_help'),
 	#url(r'^pdf/$', GeneratePDF.as_view()),
 	# url(r'^pdf/$', GeneratePDF2, name = 'GenPDF'),
