@@ -324,6 +324,7 @@ def register(request):
 				profile = user_profile_form.save(commit=False)
 				profile.user = user
 				profile.email = email
+				request.session['Profile_updated'] = False	# Set this to false initially
 				profile.save()
 
 				# Create strorge folders for the registered user 
