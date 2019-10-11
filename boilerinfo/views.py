@@ -508,9 +508,13 @@ def generate_quote_from_file(request, outputformat, quotesource):
 		product_record = ProductPrice.objects.get(pk = int(product_id))
 
 	frecords = Document.objects.filter(user=request.user.username).order_by('uploaded_at')
-	print(product_record.product_image.id)
-	img_record = Document.objects.get(id = product_record.product_image.id )
-	print(img_record.document)
+	#print(product_record.product_image.id)
+	try:	# test to see if image is associated with product
+		img_record = Document.objects.get(id = product_record.product_image.id )
+	except: # if not then continue with empty object
+		img_record = ""
+		
+	#print(img_record.document)
 
 	# Determine whether to output to screen as PDF or HTML
 	if outputformat == "PDFOutput":
