@@ -76,6 +76,16 @@ def sig_user_logged_in(sender, user, request, **kwargs):
 	else:
 		request.session['User_subscribed'] = False
 
+	if user.groups.filter(name = "created_quote_template").exists():
+		request.session['created_quote_template'] = True
+	else:
+		request.session['created_quote_template'] = False
+
+	if user.groups.filter(name = "created_quote").exists():
+		request.session['created_quote'] = True
+	else:
+		request.session['created_quote'] = False				
+
 	return 
 
 class FormWizardView(SessionWizardView):
@@ -271,6 +281,9 @@ class FormWizardView(SessionWizardView):
 
 
 def quote_generated(request):
+	request.session['created_quote'] = True
+	created_quote_group = Group.objects.get(name = 'created_quote')
+	request.user.groups.add(created_quote_group)
 	return render(request,'quote_generated.html')
 
 def quote_emailed(request):
@@ -572,6 +585,9 @@ def edit_quote_template(request):
 		template_file = open(usr_pdf_template_file,'w', newline='')
 		template_file.write(pdf_template_code)
 		template_file.close()
+		request.session['created_quote_template'] = True
+		created_quote_template_group = Group.objects.get(name = 'created_quote_template')
+		request.user.groups.add(created_quote_template_group)
 		messages.success(request, 'Your quote template has been updated.')
 	else:
 		form = EditQuoteTemplateForm(request.user)
