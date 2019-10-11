@@ -446,7 +446,7 @@ class DocumentForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('first_name','last_name','company_name','telephone', 'quote_prefix', 'cur_quote_no')
+		fields = ('first_name','last_name','email','company_name','telephone', 'quote_prefix', 'cur_quote_no')
 		
 class UserProfileForm(forms.ModelForm):
 	class Meta:
