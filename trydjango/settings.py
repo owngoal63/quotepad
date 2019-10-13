@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'formtools',
     'import_export',
     'payments.apps.PaymentsConfig',
+    'rest_framework',
+    'Rest'
 ]
 
 MIDDLEWARE = [
@@ -78,23 +80,23 @@ WSGI_APPLICATION = 'trydjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   }
+}
 
 # mongodb+srv://gordon:<password>@gordon-mongo-sodfw.mongodb.net/admin?retryWrites=true&w=majority
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME' : 'gordon-mongo',
-        'HOST' : 'mongodb+srv://gordon:Le!me1nM@gordon-mongo-sodfw.mongodb.net/admin?retryWrites=true&w=majority',
-        'USER' : 'gordon',
-        'PASSWORD' : 'Le!me1nM'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME' : 'gordon-mongo',
+#         'HOST' : 'mongodb+srv://gordon:Le!me1nM@gordon-mongo-sodfw.mongodb.net/admin?retryWrites=true&w=majority',
+#         'USER' : 'gordon',
+#         'PASSWORD' : 'Le!me1nM'
+#     }
+# }
 
 
 # Password validation
@@ -162,3 +164,9 @@ EMAIL_PORT = '2525'
 # Stripe key settings
 STRIPE_SECRET_KEY = 'sk_test_4YVK8BcxtDC2f0F7DVau0JWG00TJj1bFLs'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_34Pl9iMCAFEIfxCGX84ZrP6G0047uZg93B'
+
+# REST Framework Authentication settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : ('rest_framework.permissions.IsAuthenticatedOrReadOnly',)
+}

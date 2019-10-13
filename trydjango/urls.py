@@ -73,4 +73,7 @@ urlpatterns = [
 	path('listquotearchive/', list_quote_archive, name = 'listquotearchive'),
 	path('pdfview/<str:pdf_file>', pdf_view, name = 'pdfview'),
 	path('', include('payments.urls')),
+
+	path('', include('Rest.urls')),
+	path('api-auth/', include('rest_framework.urls'))		# Adds user sign-on authentication to the REST framework views
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
