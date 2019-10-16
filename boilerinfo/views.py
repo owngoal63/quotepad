@@ -416,19 +416,21 @@ def show_uploaded_files(request):
 	
 
 def edit_Profile_details(request):
-	print(request.user.username)
+	#print(request.user.username)
 	profile = get_object_or_404(Profile, user = request.user )
 	if request.method=="POST":
-		form = ProfileForm(request.POST, instance=profile)
+		form = ProfileForm(request.POST or None, instance=profile)
 		if form.is_valid():
+			alert = 1
 			form.save()
 			request.session['Profile_updated'] = True
-			messages.success(request, 'Your profile details have been updated.')
-			return redirect('/home/')
+			#messages.success(request, 'Your profile details have been updated.')
+			#return redirect('/home/')
 	else:
+		alert = None
 		form = ProfileForm(instance=profile)
 		
-	return render(request,"edit_Profile_details.html",{'form': form}) 
+	return render(request,"edit_Profile_details.html",{'form': form, 'alert': alert}) 
 
 # Views to perform CRUD operations on the ProductPrice model
 
@@ -592,8 +594,10 @@ def edit_quote_template(request):
 		request.session['created_quote_template'] = True
 		created_quote_template_group = Group.objects.get(name = 'created_quote_template')
 		request.user.groups.add(created_quote_template_group)
-		messages.success(request, 'Your quote template has been updated.')
+		#messages.success(request, 'Your quote template has been updated.')
+		alert = 1
 	else:
+		alert = None
 		form = EditQuoteTemplateForm(request.user)
 		return render(request,"edit_quote_template.html",{'form': form}) 
 
