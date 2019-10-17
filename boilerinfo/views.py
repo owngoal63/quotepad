@@ -228,7 +228,9 @@ class FormWizardView(SessionWizardView):
 			print(type(e)) 
 			print("Error: No Image exists for the Product")
 
-		#img_record = Document.objects.get(id = product_record.product_image.id)
+		# Calculate the daily_work_rate multiplied by the estimated_duration
+		workload_cost = idx.daily_work_rate * int([form.cleaned_data for form in form_list][8].get('estimated_duration')[0])
+		print(workload_cost)
 
 		# Get the records of the images file for the current user
 		frecords = Document.objects.filter(user=self.request.user.username).order_by('uploaded_at')
@@ -263,7 +265,8 @@ class FormWizardView(SessionWizardView):
 			'idx':idx,
 			'frecords': frecords,
 			'product_record': product_record,
-			'img_record': img_record})
+			'img_record': img_record,
+			'workload_cost': workload_cost})
 
 		# Generate the email, attach the pdf and send out ( now handled elsewhere )
 		# fd = [form.cleaned_data for form in form_list]
@@ -533,11 +536,7 @@ def generate_quote_from_file(request, outputformat, quotesource):
 	except: # if not then continue with empty object
 		img_record = ""
 		
-	#print(img_record.document)
 	# Calculate the daily_work_rate multiplied by the estimated_duration
-	#print(idx.daily_work_rate)
-	#print(int(file_form_data[8].get('estimated_duration')[0]))
-	#print(idx.daily_work_rate * int(file_form_data[8].get('estimated_duration')[0]))
 	workload_cost = idx.daily_work_rate * int(file_form_data[8].get('estimated_duration')[0])
 	print(workload_cost)
 
