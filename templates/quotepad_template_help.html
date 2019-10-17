@@ -297,6 +297,10 @@
                 <td>{% verbatim %}{{ idx.telephone }}{% endverbatim %}</td>  
         </tr>
         <tr>
+                <td>daily_work_rate</td>
+                <td>{% verbatim %}{{ idx.daily_work_rate }}{% endverbatim %}</td>  
+        </tr>        
+        <tr>
                 <td>quote_prefix</td>
                 <td>{% verbatim %}{{ idx.quote_prefix }}{% endverbatim %}</td>  
         </tr>
@@ -342,7 +346,22 @@
                 <td>{% verbatim %}{{img_record.document.url}} {% endverbatim %}</td>  
         </tr>
         
-    </table>  
+    </table>
+
+    <hr>
+    <h4>Rendering Data on Calculated Field(s)</h4>
+
+    <h4>Calculated Field(s)</h4>
+    <table border="1">
+        
+        <th>Calculated Field</th>
+        <th>Page Layout Identifer</th>
+        <tr>
+                <td>workload_cost (daily_work_rate x estimated_duration)</td>
+                <td>{% verbatim %}{{workload_cost}}{% endverbatim %}</td>  
+        </tr>
+        
+    </table>
 
     <hr>
     <h4>Rendering Uploaded Images to the template</h4>
