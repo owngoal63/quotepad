@@ -534,6 +534,12 @@ def generate_quote_from_file(request, outputformat, quotesource):
 		img_record = ""
 		
 	#print(img_record.document)
+	# Calculate the daily_work_rate multiplied by the estimated_duration
+	#print(idx.daily_work_rate)
+	#print(int(file_form_data[8].get('estimated_duration')[0]))
+	#print(idx.daily_work_rate * int(file_form_data[8].get('estimated_duration')[0]))
+	workload_cost = idx.daily_work_rate * int(file_form_data[8].get('estimated_duration')[0])
+	print(workload_cost)
 
 	# Determine whether to output to screen as PDF or HTML
 	if outputformat == "PDFOutput":
@@ -542,7 +548,8 @@ def generate_quote_from_file(request, outputformat, quotesource):
 			'idx': idx,
 			'frecords': frecords,
 			'product_record': product_record,
-			'img_record': img_record})
+			'img_record': img_record,
+			'workload_cost': workload_cost})
 		return HttpResponse(pdf, content_type='application/pdf')
 
 	elif outputformat == "EmailOutput":
@@ -556,7 +563,8 @@ def generate_quote_from_file(request, outputformat, quotesource):
 			'idx':idx,
 			'frecords': frecords,
 			'product_record': product_record,
-			'img_record': img_record})
+			'img_record': img_record,
+			'workload_cost': workload_cost})
 		# Generate the email, attach the pdf and send out
 		fd = file_form_data
 		msg=""
@@ -576,7 +584,8 @@ def generate_quote_from_file(request, outputformat, quotesource):
 			'idx': idx,
 			'frecords': frecords,
 			'product_record': product_record,
-			'img_record': img_record},
+			'img_record': img_record,
+			'workload_cost': workload_cost},
 			)
 
 def edit_quote_template(request):
@@ -594,7 +603,7 @@ def edit_quote_template(request):
 		request.session['created_quote_template'] = True
 		created_quote_template_group = Group.objects.get(name = 'created_quote_template')
 		request.user.groups.add(created_quote_template_group)
-		#messages.success(request, 'Your quote template has been updated.')
+		messages.success(request, 'Your quote template has been updated.')
 		alert = 1
 	else:
 		alert = None

@@ -446,7 +446,7 @@ class DocumentForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('first_name','last_name','email','company_name','telephone', 'quote_prefix', 'cur_quote_no')
+		fields = ('first_name','last_name','email','company_name','telephone', 'daily_work_rate', 'quote_prefix', 'cur_quote_no')
 		
 class UserProfileForm(forms.ModelForm):
 	class Meta:
@@ -479,7 +479,7 @@ class EditQuoteTemplateForm(forms.Form):
 		#print(usr_pdf_template_file)
 		template_file = open(usr_pdf_template_file,'r')
 		self.fields['pdf_template_code'].initial = template_file.read
-
+		alert = None
 
 
 

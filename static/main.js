@@ -23,3 +23,4 @@ function edit_template_form_validation_response() {
         not_all_good("Oops!", "There was a problem with your template update.")
     }
 }
+ 
