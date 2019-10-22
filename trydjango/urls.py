@@ -23,6 +23,7 @@ from django.contrib.auth import views as auth_views
 from boilerinfo.views import home, register, change_password
 from boilerinfo.forms import FormStepOne, FormStepTwo, FormStepThree, FormStepFour, FormStepFive, FormStepSix, FormStepSeven, FormStepEight, FormStepNine
 from boilerinfo.views import FormWizardView, model_form_upload
+from django.contrib.auth.decorators import login_required
 
 from boilerinfo.views import edit_Profile_details, show_uploaded_files, quote_generated, quote_emailed, quote_not_possible, quotepad_template_help
 from boilerinfo.views import ProductPriceList, ProductPriceCreate, ProductPriceUpdate, ProductPriceDelete
@@ -49,7 +50,7 @@ urlpatterns = [
 	path('loginredirect/', home, name = 'home'),
 	path('changepassword/', change_password, name = 'change_password'),
 	path('home/', home, name = 'home'),
-	path('boilerform/', FormWizardView.as_view([FormStepOne,FormStepTwo,FormStepThree, FormStepFour, FormStepFive, FormStepSix, FormStepSeven, FormStepEight, FormStepNine]), name = 'boilerform'),
+	path('boilerform/', login_required(FormWizardView.as_view([FormStepOne,FormStepTwo,FormStepThree, FormStepFour, FormStepFive, FormStepSix, FormStepSeven, FormStepEight, FormStepNine])), name = 'boilerform'),
 	path('generatequotefromfile/<str:outputformat>/<str:quotesource>', generate_quote_from_file, name = 'generate_quote_from_file'),
 	#url(r'^', include('boilerform.urls'))
 	path('fileupload/', model_form_upload, name = 'file_upload'),
@@ -63,12 +64,12 @@ urlpatterns = [
 	path('edit_Profile_details/', edit_Profile_details, name = 'edit_Profile_details'),
 	#path('listproductsforquote/', list_products_for_quote, name = 'list_products_for_quote'),
 	# path('uploadproductpricingfile/', upload_product_pricing_file, name = 'upload_product_pricing_file'),
-	path('productpricelist/', ProductPriceList.as_view(), name = 'productpricelist'),
+	path('productpricelist/', login_required(ProductPriceList.as_view()), name = 'productpricelist'),
 	#path('productpricecreate/', ProductPriceCreate.as_view(), name = 'productpricecreate'),
 	path('productpricecreate/', ProductPriceCreate, name = 'productpricecreate'),
 	#path('productpriceupdate/<int:pk>/', ProductPriceUpdate.as_view(), name = 'productpriceupdate'),
 	path('productpriceupdate/<int:product_id>/', ProductPriceUpdate, name = 'productpriceupdate'),
-	path('productpricedelete/<int:pk>/', ProductPriceDelete.as_view(), name = 'productpricedelete'),
+	path('productpricedelete/<int:pk>/', login_required(ProductPriceDelete.as_view()), name = 'productpricedelete'),
 	path('editquotetemplate/', edit_quote_template, name = 'editquotetemplate'),
 	path('listquotearchive/', list_quote_archive, name = 'listquotearchive'),
 	path('pdfview/<str:pdf_file>', pdf_view, name = 'pdfview'),
