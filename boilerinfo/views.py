@@ -405,6 +405,14 @@ def change_password(request):
 
 @login_required
 def model_form_upload(request):
+	# Check to see what is the status of the number of images uploaded
+	if Document.objects.filter(user = request.user).count() == 0 :
+		form_instructions = "Upload a logo for your company"
+	elif Document.objects.filter(user = request.user).count() == 1 :
+		form_instructions = "Upload a product image to be used on your quotes"
+	else:
+		form_instructions = "Upload images to be used on your quotes"
+		
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		print(request.user)
@@ -418,7 +426,8 @@ def model_form_upload(request):
 	else:
 		form = DocumentForm()
 	return render(request, 'file_upload.html', {
-		'form': form
+		'form': form,
+		'form_instructions': form_instructions
 	})
 
 @login_required

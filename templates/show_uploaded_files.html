@@ -18,6 +18,12 @@
 
 {% endfor %}
 
+{% if frecords|length == 1 %}
+<script>
+    Swal.fire("Good Progress", "You have a logo for your quote. Now upload a Product Image.", "info")
+</script>
+{% endif %}
+
 {% if frecords|length == 2 %}
 <script>
     Swal.fire("Great news", "You now have the minimum number of images to create a quote.", "success")

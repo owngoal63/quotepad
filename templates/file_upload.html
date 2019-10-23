@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
 {% if messages %}
@@ -9,7 +8,8 @@
   {% endfor %}
 {% endif %}
 
-<h2>File upload</h2>
+<!-- <h2>File upload</h2> -->
+<h2>{{ form_instructions }}</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
