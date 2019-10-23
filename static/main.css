@@ -284,3 +284,8 @@ select {
   .boilerformbtns{
     align-content: center;
   }
+
+  .container{
+    width: 800px;
+    background-color: lightgray;
+  }

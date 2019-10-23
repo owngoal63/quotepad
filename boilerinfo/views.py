@@ -86,8 +86,8 @@ def sig_user_logged_in(sender, user, request, **kwargs):
 	else:
 		request.session['created_quote'] = False				
 
-	return 
-
+	return
+	 
 class FormWizardView(SessionWizardView):
 	template_name = "boilerform.html"
 
