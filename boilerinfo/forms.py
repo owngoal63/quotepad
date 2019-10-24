@@ -70,8 +70,8 @@ CURRENT_CONTROLS_DROPDOWN = (
 	('Wired - Programmer','Wired - Programmer'),
 	('Wired - Room Thermostat','Wired - Room Thermostat'),
 	('Wired - Cylinder Thermostat','Wired - Cylinder Thermostat'),
-	('Wireless - Room Thermostat','Wireless - Room Thermostat'),
-	('Wireless - Programmable Room Thermostat','Wireless - Programmable Room Thermostat'),
+	('Wireless-Room Thermostat','Wireless-Room Thermostat'),
+	('Wireless-Programmable Thermostat','Wireless-Programmable Thermostat'),
 	('Smart Thermostat','Smart Thermostat'),
 	('None','None'),
 )
@@ -150,9 +150,9 @@ NEW_CONTROLS_DROPDOWN = (
 	('Wired - Room Thermostat','Wired - Room Thermostat'),
 	('Wired - Cylinder Thermostat','Wired - Cylinder Thermostat'),
 	('Wireless - Room Thermostat','Wireless - Room Thermostat'),
-	('Wireless - Programmable Room Thermostat','Wireless - Programmable Room Thermostat'),
-	('Smart Controls - Nest','Smart Controls - Nest'),
-	('Smart Controls - ESI','Smart Controls - ESI'),
+	('Wireless-Programmable Thermostat','Wireless-Programmable Thermostat'),
+	('Smart Controls-Nest','Smart Controls - Nest'),
+	('Smart Controls-ESI','Smart Controls - ESI'),
 	('Use Existing','Use Existing'),
 )
 
@@ -294,10 +294,10 @@ RADIATOR_REQUIREMENTS_DROPDOWN = (
 
 ESTIMATED_DURATION_DROPDOWN = (
 	('1 Day','1 Day'),
-	('2 Day','2 Day'),
-	('3 Day','3 Day'),
-	('4 Day','4 Day'),
-	('5 Day','5 Day'),
+	('2 Days','2 Days'),
+	('3 Days','3 Days'),
+	('4 Days','4 Days'),
+	('5 Days','5 Days'),
 )
 
 
